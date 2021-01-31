@@ -1,0 +1,18 @@
+# Based on example provided in lecture. For reference:
+# https://github.com/NatTuck/scratch-2021-01/blob/master/notes-4550/01-welcome/notes.md#set-up-the-server
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /home/baustin/www/hw03.baustin-neu.site;
+
+    index index.html;
+
+    server_name hw03.baustin-neu.site;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
