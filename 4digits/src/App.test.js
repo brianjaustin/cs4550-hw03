@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('initially renders active game', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headerElement = screen.getByText(/4digits/i);
+  const paraElement = screen.getByText(/Guess a 4 digit number/i);
+  
+  expect(headerElement).toBeInTheDocument();
+  expect(paraElement).toBeInTheDocument();
 });
