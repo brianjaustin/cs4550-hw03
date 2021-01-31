@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import _ from 'lodash';
 import { randomSecret, guessResult, isGameOver, isGameWon } from './game';
+
+import 'milligram';
 import './App.css';
 
 function ActiveGame({reset, secret, guesses, setGuesses}) {
@@ -58,7 +60,7 @@ function ActiveGame({reset, secret, guesses, setGuesses}) {
           Guess
         </button>
       </div>
-      <button onClick={reset}>
+      <button className="button button-outline" onClick={reset}>
         Reset Game
       </button>
       <h2>Guesses:</h2>
