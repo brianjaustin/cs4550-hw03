@@ -5,15 +5,28 @@ import { randomSecret, guessResult, isGameOver, isGameWon } from './game';
 import 'milligram';
 import './App.css';
 
+function ErrorMessage({msg}) {
+  if (msg) {
+    return (
+      <div className="error">
+        <p>{msg}</p>
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
 function ActiveGame({reset, secret, guesses, setGuesses}) {
   const [currentGuess, setCurrentGuess] = useState("");
+  const [error, setError] = useState("");
 
   function guess() {
     // Check that the input was a 4-digit number with unique digits
     if (!currentGuess.match(/^[1-9][0-9]{3}$/)) {
-      alert("Guess must be a 4-digit number.");
+      setError("Guess must be a four-digit number between 1000 and 9999");
     } else if (_.uniq(currentGuess).length !== currentGuess.length) {
-      alert("Four digits must be unique.");
+      setError("Guess must not contain duplicated digits");
     } else {
       // Emulate the behavior of a set (unique elements only)
       // using the example from https://stackoverflow.com/a/52173482.
@@ -21,6 +34,7 @@ function ActiveGame({reset, secret, guesses, setGuesses}) {
       // in https://dev.to/ganes1410/using-javascript-sets-with-react-usestate-39eo.
       const newGuesses = _.concat(guesses, currentGuess);
       setGuesses(_.uniq(newGuesses));
+      setError("");
     }
   }
 
@@ -51,6 +65,7 @@ function ActiveGame({reset, secret, guesses, setGuesses}) {
     <div className="App">
       <h1>4digits</h1>
       <p>Guess a 4 digit number:</p>
+      <ErrorMessage msg={error} />
       <div>
         <input type="text"
                value={currentGuess}
